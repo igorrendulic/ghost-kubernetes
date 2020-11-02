@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+    service.beta.kubernetes.io/do-loadbalancer-algorithm: "round_robin"
+    service.beta.kubernetes.io/do-loadbalancer-tls-ports: "443"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "e4dca8e1-86f9-4933-a5d1-20347c4c9036"
+    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
+spec:
+  type: LoadBalancer
+  selector:
+    app: blog
+  ports:
+  - protocol: TCP
+    name: http
+    port: 80
+    targetPort: 2368
+  - protocol: TCP
+    name: https
+    port: 443
+    targetPort: 2368
